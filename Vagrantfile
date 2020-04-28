@@ -18,6 +18,12 @@ Vagrant.configure(2) do |config|
     rm -rf /home/linuxbrew
     mkdir -p /home/linuxbrew/  
     chown vagrant:vagrant /home/linuxbrew
+    apt install apt-transport-https ca-certificates curl software-properties-common gnupg -y
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    apt update
+    apt install docker-ce -y
+    usermod -aG docker vagrant
 
   SHELL
   config.vm.provision "shell", path: "install.sh", privileged: false
